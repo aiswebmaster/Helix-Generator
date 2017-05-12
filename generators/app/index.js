@@ -5,7 +5,7 @@ var chalk = require('chalk');
 var yosay = require('yosay');
 var path = require('path');
 var mkdirp = require('mkdirp');
-var guid = require('node-uuid');
+//var guid = require('uuid');
 const typePrompts = require('./prompts');
 
 module.exports = class extends Generator {
@@ -24,15 +24,23 @@ module.exports = class extends Generator {
 
         return this.prompt(typePrompts).then((answers) => {
 
-            if (answers.type === 'helixSolution') {
-                this.composeWith(require.resolve('../helix-solution'), answers.initialNamespace);
+            if (answers.generatorType === 'helixSolution') {
+                this.composeWith(require.resolve('../helix-solution'), { 
+                    options: { 
+                        initialNamespace: answers.initialNamespace 
+                    }
+                });
             }
 
-            if (answers.type === 'helixModule') {
-                this.composeWith(require.resolve('../helix-module'), answers.initialNamespace);
+            if (answers.generatorType === 'helixModule') {
+                this.composeWith(require.resolve('../helix-module'), { 
+                    options: { 
+                        initialNamespace: answers.initialNamespace 
+                    }
+                });
             }
 
-            if (answers.type === 'exit') {
+            if (answers.generatorType === 'exit') {
                 process.exit();
             }
 

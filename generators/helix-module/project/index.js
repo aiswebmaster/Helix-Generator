@@ -4,9 +4,9 @@ var Generator = require('yeoman-generator');
 var path = require('path');
 var chalk = require('chalk');
 var mkdirp = require('mkdirp');
-var guid = require('node-uuid');
+var guid = require('uuid');
 
-const prompts = require('prompts');
+const prompts = require('./prompts');
 
 module.exports = class extends Generator {
 
@@ -17,7 +17,15 @@ module.exports = class extends Generator {
         this.option('initialNamespace');
     }
 
-    prompting() {
+    init() {
+        this._prompting();
+    }
+
+    _prompting() {
+
+        return this.prompt(prompts).then((answers) => {
+
+        });
 
     }
 

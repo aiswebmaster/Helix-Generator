@@ -6,7 +6,7 @@ var chalk = require('chalk');
 var mkdirp = require('mkdirp');
 var guid = require('uuid');
 
-const prompts = require('./prompts');
+//const prompts = require('./prompts');
 
 module.exports = class extends Generator {
 
@@ -15,10 +15,13 @@ module.exports = class extends Generator {
 
         this.option('moduleName');
         this.option('initialNamespace');
+
+        
     }
 
     init() {
-        this._prompting();
+        //this._prompting();
+        this.log("Generating Feature '" + this.options.moduleName + "'");
     }
 
     _prompting() {
@@ -30,15 +33,17 @@ module.exports = class extends Generator {
     }
 
     configure() {
+        this.projectGuid = '{' + guid.v4() + '}';
 
+        this.targetPath = path.join('Feature', this.options.moduleName, 'src');
+
+        this.log('Feature Target Path: ' + this.targetPath);
     }
 
     projectSetup() {
-
-    }
-
-    initialFolders() {
-
+        this.fs.copyTpl(this.templatePath('/Feature**'),
+        this.destinationPath(this.targetPath),
+        { globOptions: {dot: false } });
     }
 
 }

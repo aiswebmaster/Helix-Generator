@@ -4,7 +4,7 @@ var Generator = require('yeoman-generator');
 var chalk = require('chalk');
 var path = require('path');
 var mkdirp = require('mkdirp');
-var guid = require('node-uuid');
+var guid = require('uuid');
 
 const prompts = require('prompts');
 
@@ -12,7 +12,11 @@ module.exports = class extends Generator {
 
     constructor(args, opts) { super(args, opts); }
 
-    prompting() {
+    init() {
+        this._prompting();
+    }
+
+    _prompting() {
 
 
 
