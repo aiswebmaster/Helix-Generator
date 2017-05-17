@@ -13,9 +13,9 @@ module.exports = class extends Generator {
     constructor(args, opts) {
         super(args, opts);
 
-        this.option('initialNamespace');
+        this.initialNamespace = this.config.get('configInitialNamespace');
 
-        this.log(this.options.initialNamespace);
+        this.log(this.initialNamespace);
     }   
 
     init() {
@@ -25,34 +25,20 @@ module.exports = class extends Generator {
     _prompting() {
 
         return this.prompt(prompts).then((answers) => {
-            this.moduleName = answers.moduleName;
-            this.moduleType = answers.moduleType;
 
-            var optionValues = { options: 
-                    { 
-                        moduleName: this.moduleName, 
-                        initialNamespace: this.options.initialNamespace
-                    }
-                };
-
-            this.log(optionValues);
-            this.log(this.moduleType);
+            this.config.set('configModuleName', answers.moduleName);
+            this.config.set('configModuleType', answers.ModuleType);
 
             if (answers.moduleType === 'helixProject') {
-                this.composeWith(require.resolve('./project'), { options: { moduleName: answers.moduleName, initialNamespace: this.options.initialNamespace }});
+                this.composeWith(require.resolve('./project'));
             }
 
             if (answers.moduleType === 'helixFeature') {
-                this.composeWith(require.resolve('./feature'), { options: 
-                    { 
-                        moduleName: this.moduleName, 
-                        initialNamespace: this.options.initialNamespace
-                    }
-                });
+                this.composeWith(require.resolve('./feature'));
             }
 
             if (answers.moduleType === 'helixFoundation') {
-                this.composeWith(require.resolve('./foundation'), { options: { moduleName: answers.moduleName, initialNamespace: this.options.initialNamespace }});
+                this.composeWith(require.resolve('./foundation'));
             }
         });
 

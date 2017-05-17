@@ -13,8 +13,9 @@ module.exports = class extends Generator {
     constructor(args, opts) {
         super(args, opts);
 
-        this.option('moduleName');
-        this.option('initialNamespace');
+        this.initialNamespace = this.config.get('configInitialNamespace');
+        this.moduleName = this.config.get('configModuleName');
+        this.moduleType = this.config.get('configModuleType');
     }
 
     init() {
@@ -32,7 +33,7 @@ module.exports = class extends Generator {
     configure() {
         this.projectGuid = '{' + guid.v4() + '}';
 
-        this.targetPath = path.join('Project', this.options.moduleName, 'src');
+        this.targetPath = path.join('Project', this.moduleName, 'src');
         this.log('Project Target Path: ' + this.targetPath);
     }
 
@@ -45,7 +46,7 @@ module.exports = class extends Generator {
     initialFolders() {
 
         //mkdirp.sync(path.join(this.targetPath, 'tests'));
-        mkdirp.sync(path.join(this.targetPath, '/App_Config/Include/zzz.' + this.options.initialNamespace + 'Feature.' + this.options.moduleName));
+        mkdirp.sync(path.join(this.targetPath, '/App_Config/Include/zzz.' + this.initialNamespace + 'Feature.' + this.moduleName));
 
     }
 

@@ -13,8 +13,8 @@ module.exports = class extends Generator {
     constructor(args, opts) {
         super(args, opts);
 
-        this.option('moduleName');
-        this.option('initialNamespace');
+        this.initialNamespace = this.config.get('configInitialNamespace');
+        this.moduleName = this.config.get('configModuleName');
     }
 
     init() {

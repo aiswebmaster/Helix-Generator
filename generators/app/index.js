@@ -24,20 +24,14 @@ module.exports = class extends Generator {
 
         return this.prompt(typePrompts).then((answers) => {
 
+            this.config.set('configInitialNamespace', answers.initialNamespace);
+
             if (answers.generatorType === 'helixSolution') {
-                this.composeWith(require.resolve('../helix-solution'), { 
-                    options: { 
-                        initialNamespace: answers.initialNamespace 
-                    }
-                });
+                this.composeWith(require.resolve('../helix-solution'));
             }
 
             if (answers.generatorType === 'helixModule') {
-                this.composeWith(require.resolve('../helix-module'), { 
-                    options: { 
-                        initialNamespace: answers.initialNamespace 
-                    }
-                });
+                this.composeWith(require.resolve('../helix-module'));
             }
 
             if (answers.generatorType === 'exit') {

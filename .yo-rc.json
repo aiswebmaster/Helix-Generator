@@ -1,0 +1,6 @@
+{
+  "generator-sc": {
+    "configInitialNamespace": "Sitecore",
+    "configModuleName": "Blog"
+  }
+}
